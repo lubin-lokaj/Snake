@@ -230,6 +230,37 @@ class Jeu {
         if (this.cases[indexPomme]) {
             this.cases[indexPomme].innerHTML = '<img src="pomme.svg" alt="pomme">';
         }
+
+
+        // Affichage de la flèche de direction une case avant la flèche
+        // On stocke les images correspondant aux directions
+        // const flèchesDirection = {
+        //     haut: "haut.svg",
+        //     bas: "bas.svg",
+        //     gauche: "gauche.svg",
+        //     droite: "droite.svg"
+        // };
+        // Récupérer la tête
+        // const [tx, ty] = this.serpent.corps[this.serpent.corps.length - 1];
+
+        // Calculer la case "devant" selon la direction
+        // let fx = tx;
+        // let fy = ty;
+
+        // switch(this.serpent.direction) {
+        //     case "droite": fx += 1; break;
+        //     case "gauche": fx -= 1; break;
+        //     case "haut": fy -= 1; break;
+        //     case "bas": fy += 1; break;
+        // }
+
+        // Vérifier que la case est dans la grille
+        // if (fx >= 0 && fx < this.tailleGrille && fy >= 0 && fy < this.tailleGrille) {
+        //     const indexFlèche = fy * this.tailleGrille + fx;
+        //     if (this.cases[indexFlèche]) {
+        //         this.cases[indexFlèche].innerHTML = `<img src="${flèchesDirection[this.serpent.direction]}" alt="flèche">`;
+        //     }
+        // }
     }
 }
 
