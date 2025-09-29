@@ -203,8 +203,11 @@ class Jeu {
 
     // Méthode pour afficher le serpent et la pomme
     afficher() {
-        // Nettoyage de toute la grille
-        this.cases.forEach(c => c.style.backgroundColor = "#333");
+        // Nettoyage, on efface le serpent, et on enlève les images de pomme
+        this.cases.forEach(c => {
+            c.style.backgroundColor = "#333";
+            c.innerHTML = "";
+        });
 
         // Dessiner le serpent
         // Colore chaque case représentant le corps du serpent en vert
@@ -215,14 +218,18 @@ class Jeu {
             if (this.cases[index]) this.cases[index].style.backgroundColor = "green";
         });
 
-        
+
         // Dessiner la pomme
         // Colore la case représentant la pomme en rouge
         const [px, py] = this.pomme.position;
 
         // La grile contient 20 cases par ligne, on multiplie y par la taille de la grille pour trouver la bonne ligne, puis on y ajoute x pour trouver la bonne colonne
         const indexPomme = py * this.tailleGrille + px;
-        if (this.cases[indexPomme]) this.cases[indexPomme].style.backgroundColor = "red";
+
+        // Affiche un svg de pomme dans la case indiquée par les coordonnées
+        if (this.cases[indexPomme]) {
+            this.cases[indexPomme].innerHTML = '<img src="pomme.svg" alt="pomme">';
+        }
     }
 }
 
