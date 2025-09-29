@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #222;
+    font-family: Arial, sans-serif;
+}
+
+/* Grille Snake */
+.grille {
+    display: grid;
+    grid-template-columns: repeat(20, 20px);
+    grid-template-rows: repeat(20, 20px);
+    background: #111;
+    border: 3px solid #555;
+    gap: 1px;
+}
+
+.case {
+    width: 20px;
+    height: 20px;
+    background: #333;
+}
+
+/* Panneau de contrôle */
+.controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.controls button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    font-size: 14px;
+    transition: transform 0.2s;
+}
+
+.controls button:hover {
+    transform: scale(1.1);
+}
+
+#start {
+    background-color: green;
+}
+
+#stop {
+    background-color: red;
+}
+
+#reset {
+    background-color: blue;
+}
