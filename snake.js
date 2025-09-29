@@ -162,7 +162,6 @@ class Jeu {
 
     // Méthode appelée à chaque "tick" pour faire avancer le serpent
     bouger() {
-        // avancer() retourne true si la pomme a été mangée
         const aMange = this.serpent.avancer(this.pomme);
 
         if (this.serpent.estMort()) {
@@ -172,9 +171,12 @@ class Jeu {
         }
 
         if (aMange) {
-            this.score++;                // incrémenter le score
-            this.pomme.generer(this.serpent); // régénérer la pomme
+            this.score++;
+            this.pomme.generer(this.serpent);
         }
+
+        // Mettre à jour l'affichage du score
+        document.getElementById("score").textContent = this.score;
 
         this.afficher();
     }
