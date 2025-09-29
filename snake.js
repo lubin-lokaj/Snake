@@ -111,3 +111,107 @@ class Serpent {
         return false;
     }
 }
+
+class Jeu {
+    constructor() {
+        this.tailleGrille = 20;
+        this.serpent = new Serpent(3, this.tailleGrille);
+        this.pomme = new Pomme();
+        this.pomme.generer(this.serpent);
+        this.score = 0;
+        this.vitesse = 200;
+        this.intervalle = null;
+
+        // Récupérer la grille dans le DOM
+        this.zoneGrille = document.querySelector(".grille");
+
+        // Générer 400 cases (20x20)
+        for (let i = 0; i < this.tailleGrille * this.tailleGrille; i++) {
+            const div = document.createElement("div");
+            div.classList.add("case");
+            this.zoneGrille.appendChild(div);
+        }
+
+        this.cases = Array.from(this.zoneGrille.children); // maintenant toutes les cases existent
+
+        // Ajouter les écouteurs de touches
+        document.addEventListener("keydown", (e) => this.touche(e));
+    }
+
+    // Méthode pour démarrer le jeu
+    demarrer() {
+        if (!this.intervalle) {
+            this.intervalle = setInterval(() => this.bouger(), this.vitesse);
+        }
+    }
+
+    // Méthode pour mettre en pause
+    pause() {
+        clearInterval(this.intervalle);
+        this.intervalle = null;
+    }
+
+    // Méthode pour reset le jeu
+    reset() {
+        this.pause();
+        this.serpent = new Serpent(3, this.tailleGrille);
+        this.pomme.generer(this.serpent);
+        this.score = 0;
+        this.afficher();
+    }
+
+    // Méthode appelée à chaque "tick" pour faire avancer le serpent
+    bouger() {
+        // avancer() retourne true si la pomme a été mangée
+        const aMange = this.serpent.avancer(this.pomme);
+
+        if (this.serpent.estMort()) {
+            alert("Game Over ! Score : " + this.score);
+            this.reset();
+            return;
+        }
+
+        if (aMange) {
+            this.score++;                // incrémenter le score
+            this.pomme.generer(this.serpent); // régénérer la pomme
+        }
+
+        this.afficher();
+    }
+
+    // Gestion des touches
+    touche(e) {
+        if (e.key === "ArrowUp") this.serpent.changerDirection("haut");
+        else if (e.key === "ArrowDown") this.serpent.changerDirection("bas");
+        else if (e.key === "ArrowLeft") this.serpent.changerDirection("gauche");
+        else if (e.key === "ArrowRight") this.serpent.changerDirection("droite");
+    }
+
+    // Méthode pour afficher le serpent et la pomme
+    afficher() {
+        // Tout nettoyer
+        this.cases.forEach(c => c.style.backgroundColor = "#333");
+
+        // Dessiner le serpent
+        this.serpent.corps.forEach(([x, y]) => {
+            const index = y * this.tailleGrille + x;
+            if (this.cases[index]) this.cases[index].style.backgroundColor = "green";
+        });
+
+        // Dessiner la pomme
+        const [px, py] = this.pomme.position;
+        const indexPomme = py * this.tailleGrille + px;
+        if (this.cases[indexPomme]) this.cases[indexPomme].style.backgroundColor = "red";
+    }
+}
+
+// Créer le jeu
+const jeu = new Jeu();
+
+// Gestion des boutons
+document.getElementById("start").addEventListener("click", () => jeu.demarrer());
+document.getElementById("stop").addEventListener("click", () => jeu.pause());
+document.getElementById("reset").addEventListener("click", () => jeu.reset());
+
+// Afficher la grille initiale
+jeu.afficher();
