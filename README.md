@@ -1,4 +1,3 @@
-# Tetris
-Tetris in html/css and js
+# Snake
 
-Tetris project using HTML/CSS and JavaScript
+A snake game using html/css and javascript
